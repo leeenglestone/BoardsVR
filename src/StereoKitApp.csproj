@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Hide platform project folders from the solution explorer -->
+  <ItemGroup>
+    <Compile Remove="Platforms\**" />
+    <EmbeddedResource Remove="Platforms\**" />
+    <None Remove="Platforms\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="App - Copy %282%29.cs" />
+    <Compile Remove="App - Copy.cs" />
+    <Compile Remove="Examples\DemoFBPassthrough.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\BoardsVR.png" />
+    <None Remove="Assets\floor_shader.hlsl" />
+    <None Remove="Assets\holographic_quadrant.hlsl" />
+    <None Remove="Assets\matrix_param.hlsl" />
+    <None Remove="Assets\point_cloud.hlsl" />
+    <None Remove="Assets\shader_param_types.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SKShader Include="Assets\floor.hlsl" />
+    <SKShader Include="Assets\floor_shader.hlsl" />
+    <SKShader Include="Assets\holographic_quadrant.hlsl" />
+    <SKShader Include="Assets\matrix_param.hlsl" />
+    <SKShader Include="Assets\point_cloud.hlsl" />
+    <SKShader Include="Assets\shader_param_types.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StereoKit" Version="0.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\floor_shader.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\holographic_quadrant.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\matrix_param.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\point_cloud.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Assets\shader_param_types.hlsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\BoardsVR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

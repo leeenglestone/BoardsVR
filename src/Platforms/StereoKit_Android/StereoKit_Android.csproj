@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D7E1E175-556B-45FE-8F03-67FFC9FA97D7}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{122416d6-6b49-4ee2-a1e8-b825f31c79fe}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StereoKit_Android</RootNamespace>
+    <AssemblyName>StereoKit_Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>True</Deterministic>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System.Numerics" />
+    <!--<Reference Include="System.Numerics.Vectors" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <!-- Copy assets, and build the app's shaders into the final app folder -->
+  <ItemGroup>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\AboutAssets.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\AboutAssets.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\BlipNoise.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\BlipNoise.wav</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\business-model-canvas.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\business-model-canvas.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\Clipboard.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Clipboard.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\Cosmonaut.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Cosmonaut.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\cube.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\cube.obj</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\DamagedHelmet.gltf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\DamagedHelmet.gltf</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\floor.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\floor.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\floor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\floor.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\floor_shader.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\floor_shader.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\holographic_quadrant.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\holographic_quadrant.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\kanban-board.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\kanban-board.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\matrix_param.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\matrix_param.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\metal_plate_diff.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\metal_plate_diff.jpg</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\metal_plate_metal.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\metal_plate_metal.jpg</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\mic_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\mic_icon.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\old_depot.hdr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\old_depot.hdr</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\Palette.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Palette.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\point_cloud.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\point_cloud.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\power.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\power.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\Radio.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Radio.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\search.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\shader_param_types.hlsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\shader_param_types.hlsl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\StereoKit.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\StereoKit.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\StereoKitWide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\StereoKitWide.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\suzanne.mtl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\suzanne.mtl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\suzanne.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\suzanne.obj</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\suzanne_ascii.stl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\suzanne_ascii.stl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\suzanne_bin.stl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\suzanne_bin.stl</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\SWOT.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\SWOT.glb</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\test.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\test_normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\test_normal.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\UVTex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\UVTex.png</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="C:\Development\SKTemplate-Universal\Assets\Wand.glb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Assets\Wand.glb</Link>
+    </AndroidAsset>
+    <SKShader Include="$(SolutionDir)Assets\**\*.hlsl" BuildRoot="$(SolutionDir)Assets" BuildTo="Assets" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_main.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
+    <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StereoKit">
+      <Version>0.3.6</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\StereoKitApp.csproj">
+      <Project>{9a9b3dd2-9925-4e07-9857-513501540739}</Project>
+      <Name>StereoKitApp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\BoardsVR.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+    Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+  -->
+</Project>
