@@ -15,15 +15,14 @@ namespace StereoKitApp
         };
 
         bool showHandMenus = true;
-        static bool isEditMode = false;
+        static bool isEditMode = true;
         static TextStyle headingStyle;
         static TextStyle bodyStyle;
+        static Tex cubemap = null;
 
         // Floor
         Matrix4x4 floorTransform = Matrix.TS(new Vector3(0, -1.5f, 0), new Vector3(30, 0.1f, 30));
         Material floorMaterial;
-
-        //Matrix4x4 logoTransform = Matrix.TS(new Vector3(0, 2f, -1f), new Vector3(1f, 0.5f, 1));
 
         Matrix logoTransform = Matrix.TRS(new Vector3(0, 1.1f, -1f), Quat.LookDir(0, 0, 1), new Vector3(2f, 0.5f, 1f));
         Material logoMaterial;
@@ -36,10 +35,8 @@ namespace StereoKitApp
         // todo: refactor
         static List<Pose> poses = new List<Pose>();
         static List<string> colours = new List<string>();
-        //static List<string> titles = new List<string>();
         static string[] titles = new string[1000];
         static string[] descriptions = new string[1000];
-        //static List<string> descriptions = new List<string>();
 
         Model kanbanBoard;
         Model swotBoard;
@@ -57,6 +54,9 @@ namespace StereoKitApp
 
         public void Init()
         {
+            // Skymap
+            LoadSkyImage("belfast_farmhouse_4k.hdr");
+
             // Create assets used by the app           
             floorMaterial = new Material(Shader.FromFile("floor.hlsl"));
             floorMaterial.Transparency = Transparency.Blend;
@@ -65,7 +65,6 @@ namespace StereoKitApp
             logoMaterial = Material.Default.Copy();
             logoMaterial[MatParamName.DiffuseTex] = Tex.FromFile("BoardsVR.png");
             logoMaterial.Transparency = Transparency.Blend;
-            //logoMaterial[MatParamName.ColorTint] = Color.HSV(0.6f, 0.7f, 1f);
 
             // Init boards
             kanbanBoard = Model.FromFile("kanban-board.glb");
@@ -114,16 +113,27 @@ namespace StereoKitApp
                    yellowMaterial);
 
             // Add the first card
-            poses.Add(new Pose(0, 0, -0.5f, Quat.LookDir(0, 0, 1)));
-            colours.Add("Green");
-            titles[0] = "Example Heading";
-            descriptions[0] = "Here is a much longer body, perhaps with multiple lines worth of text. To be honest it could get quite long for a card";
+            //poses.Add(new Pose(0, 0, -0.5f, Quat.LookDir(0, 0, 1)));
+            //colours.Add("Green");
+            //titles[0] = "Example Heading";
+            //descriptions[0] = "Here is a much longer body, perhaps with multiple lines worth of text. To be honest it could get quite long for a card";
+
+            // Add initial cards
+            var exampleCards = Card.GetCardsExampleCards();//.Take(1).ToList();
+            for (int x = 0; x < exampleCards.Count; x++)
+            {
+                poses.Add(new Pose(0, 0, -0.5f, Quat.LookDir(0, 0, 1)));
+                colours.Add(exampleCards[x].Colour);
+                titles[x] = exampleCards[x].Title;
+                descriptions[x] = exampleCards[x].Description;
+            }
         }
 
         public void Step()
         {
-            if (SK.System.displayType == Display.Opaque)
-                Default.MeshCube.Draw(floorMaterial, floorTransform);
+            // Floor grid
+            //if (SK.System.displayType == Display.Opaque)
+                //Default.MeshCube.Draw(floorMaterial, floorTransform);
 
             //UI.HandleBegin("KanbanBoard", ref kanbanBoardPose, kanbanBoard.Bounds);
             kanbanBoard.Draw(kanbanBoardPose.ToMatrix(0.5f));
@@ -146,11 +156,12 @@ namespace StereoKitApp
 
                 UI.Handle($"Cube{x}", ref pose, greenModel.Bounds);
                 {
-                    if (isEditMode)
+                    //if (isEditMode)
                     {
-                        DrawHeadingAndBodyEntry(pose, x, ref titles[x], ref descriptions[x]);
+                        //DrawHeadingAndBodyEntry(pose, x, ref titles[x], ref descriptions[x]);
+                        // SHow edit button
                     }
-                    else
+                    //else
                     {
                         DrawHeadingAndBody(pose, x, ref titles[x], ref descriptions[x]);
                     }
@@ -215,26 +226,58 @@ namespace StereoKitApp
 
         private static void DrawHeadingAndBody(Pose pose, int number, ref string title, ref string description)
         {
-            Vec2 size = new Vec2(0.095f, 0.095f);
+            // Gives a bit of padding around the edges
+            Vec2 size = new Vec2(0.090f, 0.090f);
+
+            var headingPose = new Vec3(0, -0.0f, -0.008f);
+            var headingTextFit = TextFit.Squeeze;
+            var headingAlign = TextAlign.XCenter;
+            var descriptionPose = new Vec3(0, -0.015f, -0.008f);
+
+            // If no description, move heading to center
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                headingTextFit = TextFit.Wrap;
+                headingAlign = TextAlign.Center;
+            }
 
             UI.PushSurface(pose, default);
             {
                 Text.Add(title,
-
-                    Matrix.TR(new Vec3(0, -0.0f, -0.008f), Quat.LookDir(0, 0, -1)), // Quat.LookDir(Vec3.Forward)
+                    Matrix.TR(headingPose, Quat.LookDir(0, 0, -1)),
                     size,
-                    TextFit.Squeeze,
+                    headingTextFit,
                     headingStyle,
                     TextAlign.Center | TextAlign.XCenter,
-                    TextAlign.XCenter);
+                    headingAlign);
 
-                Text.Add(description,
-                    Matrix.TR(new Vec3(0, -0.015f, -0.008f), Quat.LookDir(0, 0, -1)),
-                    size,
-                    TextFit.Wrap,
-                    bodyStyle,
-                    TextAlign.Center | TextAlign.XCenter,
-                    TextAlign.XCenter);
+                if (!string.IsNullOrWhiteSpace(description))
+                {
+                    Text.Add(description,
+                        Matrix.TR(descriptionPose, Quat.LookDir(0, 0, -1)),
+                        size,
+                        TextFit.Wrap,
+                        bodyStyle,
+                        TextAlign.Center | TextAlign.XCenter,
+                        TextAlign.XCenter);
+                }
+
+                if (isEditMode)
+                {
+                    // Only show if in edit mode?
+                    Hierarchy.Push(Matrix.T(new Vec3(0, -0.06f, 0)));
+
+                    // Add edit button below card?
+                    if (UI.Button("Edit"))
+                    {
+                        // WHen pressed show Window?
+                        UI.WindowBegin("Edit Card", ref pose);
+                        // Label
+                        // Text
+                        UI.WindowEnd();
+                    }
+                    Hierarchy.Pop();
+                }
             }
             UI.PopSurface();
         }
@@ -277,36 +320,26 @@ namespace StereoKitApp
             UI.WindowBegin("HandMenu", ref menuPose, size * U.cm, UIWin.Empty);
             if (UI.Button("Green"))
             {
-                // menuPose.position
-
                 poses.Add(new Pose(menuPose.position, Quat.LookDir(0, 0, 1)));
                 colours.Add("Green");
-                //titles.Add("");
-                //descriptions.Add("");
             }
 
             if (UI.Button("Yellow"))
             {
                 poses.Add(new Pose(menuPose.position, Quat.LookDir(0, 0, 1)));
                 colours.Add("Yellow");
-                //titles.Add("");
-                //descriptions.Add("");
             }
 
             if (UI.Button("Red"))
             {
                 poses.Add(new Pose(menuPose.position, Quat.LookDir(0, 0, 1)));
                 colours.Add("Red");
-                //titles.Add("");
-                //descriptions.Add("");
             }
 
             if (UI.Button("Blue"))
             {
                 poses.Add(new Pose(menuPose.position, Quat.LookDir(0, 0, 1)));
                 colours.Add("Blue");
-                //titles.Add("");
-                //descriptions.Add("");
             }
 
             if (UI.Button("Toggle Edit Mode"))
@@ -320,6 +353,14 @@ namespace StereoKitApp
             }
 
             UI.WindowEnd();
+        }
+
+        void LoadSkyImage(string file)
+        {
+            cubemap = Tex.FromCubemapEquirectangular(file);
+
+            Renderer.SkyTex = cubemap;
+            //cubelightDirty = true;
         }
     }
 
@@ -338,12 +379,49 @@ namespace StereoKitApp
 
         public static List<Card> GetCardsExampleCards()
         {
+            // These are all added at the same place and have to be manually moved into position currently
             return new List<Card>
             {
-                new Card("title", "description", "Green"),
+                // SWOT of StereKit
+
+                // Strengths
+                new Card("Code first", "", "Green"),
+                new Card("Small code footprint", "", "Green"),
+                new Card("Constantly improving", "", "Green"),
+                new Card("Open source", "", "Green"),
+                
+                // Weaknesses
+                new Card("Not yet popular", "", "Blue"),
+                new Card("Community samples limited", "", "Blue"),
+
+                // Opportunities
+                new Card("C# code on Quests!", "", "Yellow"),
+                new Card("Great to share!", "", "Yellow"),
+
+                // Threats
+                new Card("Microsoft XR politics", "", "Red"),
+                new Card("Other XR platforms", "", "Red"),
+
+
+
+                // Kanban board of items
+
+                // Backlog
+                new Card("","", "Green"),
+                new Card("","", "Green"),
+                new Card("","", "Green"),
+                new Card("","", "Green"),
+
+                // In Progress
+
+
+                // Done
+
+                /*
                 new Card("title", "description", "Yellow"),
                 new Card("title", "description", "Blue"),
                 new Card("title", "description", "Red"),
+                */
             };
         }
     }
