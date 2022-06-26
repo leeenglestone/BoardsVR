@@ -2,7 +2,6 @@
 using StereoKit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 
 namespace StereoKitApp
@@ -17,7 +16,7 @@ namespace StereoKitApp
         };
 
         bool showHandMenus = true;
-        static bool isEditMode = true;
+        static bool isEditMode = false;
         static TextStyle headingStyle;
         static TextStyle bodyStyle;
         static Tex cubemap = null;
@@ -79,7 +78,7 @@ namespace StereoKitApp
             swotBoard = Model.FromFile("SWOT.glb");
             businessModelCanvasBoard = Model.FromFile("business-model-canvas.glb");
 
-            //Note: Can only retrieve font if run on Windows emulator, not headset?
+            // Tried it with some handwriting fonts but doesn't look very good..
             headingStyle = Text.MakeStyle(
                 //Font.FromFile("C:/Windows/Fonts/segoeprb.ttf") ?? 
                 Default.Font,
@@ -120,14 +119,8 @@ namespace StereoKitApp
                    Mesh.GenerateRoundedCube(new Vec3(0.1f, 0.1f, 0.01f), 0.001f),
                    yellowMaterial);
 
-            // Add the first card
-            //poses.Add(new Pose(0, 0, -0.5f, Quat.LookDir(0, 0, 1)));
-            //colours.Add("Green");
-            //titles[0] = "Example Heading";
-            //descriptions[0] = "Here is a much longer body, perhaps with multiple lines worth of text. To be honest it could get quite long for a card";
-
             // Add initial cards
-            var exampleCards = Card.GetCardsExampleCards();//.Take(1).ToList();
+            var exampleCards = Card.GetCardsExampleCards();
             for (int x = 0; x < exampleCards.Count; x++)
             {
                 poses.Add(new Pose(0, 0, -0.5f, Quat.LookDir(0, 0, 1)));
@@ -177,13 +170,14 @@ namespace StereoKitApp
             if (SK.System.displayType == Display.Opaque)
                 Default.MeshCube.Draw(floorMaterial, floorTransform);
 
+            // Use HandleBegin if you want to be able to move the boards around
             //UI.HandleBegin("KanbanBoard", ref kanbanBoardPose, kanbanBoard.Bounds);
             kanbanBoard.Draw(kanbanBoardPose.ToMatrix(0.5f));
             swotBoard.Draw(swotBoardPose.ToMatrix(0.5f));
             businessModelCanvasBoard.Draw(businessModelCanvasBoardPose.ToMatrix(0.5f));
             //UI.HandleEnd();
 
-            // Draw logo
+            // Draw BoardsVR logo
             Default.MeshQuad.Draw(logoMaterial, logoTransform);
 
             if (showHandMenus)
@@ -191,13 +185,6 @@ namespace StereoKitApp
                 //DrawHandMenu(Handed.Right);
                 DrawHandMenu(Handed.Left);
             }
-
-            // Test Window
-            //UI.WindowBegin($"SomeWindow", ref windowPose, new Vec2(20, 0) * U.cm);
-            //// Label
-            //UI.Label("Test Label");
-            //// Text
-            //UI.WindowEnd();
 
             // For every card
             for (int x = 0; x < poses.Count; x++)
@@ -284,7 +271,6 @@ namespace StereoKitApp
 
             UI.PushSurface(pose, default);
             {
-
                 Text.Add(title,
                     Matrix.TR(headingPose, Quat.LookDir(0, 0, -1)),
                     size,
@@ -306,22 +292,13 @@ namespace StereoKitApp
 
                 if (isEditMode)
                 {
-                    //Vec2 windowSize = new Vec2(10f, 5f);
-
-                    // Only show if in edit mode?
-                    // Hierarchy puts in correct position but click is off center?
-                    //Hierarchy.Push(Matrix.T(new Vec3(0.02f, -0.06f, 0)));
-
                     // Add edit button below card?
                     if (UI.ButtonAt($"Edit #{number}", new Vec3(0.03f, -0.06f, 0), new Vec2(0.06f, 0.03f)))
                     {
                         showEditWindow = true;
                         cardEditNumber = number;
                     }
-
-                    //Hierarchy.Pop();
                 }
-
             }
             UI.PopSurface();
         }
@@ -462,7 +439,7 @@ namespace StereoKitApp
             // These are all added at the same place and have to be manually moved into position currently
             return new List<Card>
             {
-                // SWOT of StereKit
+                // SWOT cards
 
                 // Strengths
                 new Card("Code first", "", CardColor.Green),
@@ -479,23 +456,36 @@ namespace StereoKitApp
                 new Card("Great to share!", "", CardColor.Yellow),
 
                 // Threats
-                new Card("Microsoft XR politics", "", CardColor.Red),
                 new Card("Other XR platforms", "", CardColor.Red),
 
 
 
-                // Kanban board of items
+                // Kanban board cards
 
                 // Backlog
-                new Card("Multiple Backgroundss","", CardColor.Green),
+                new Card("Sceneic Backgrounds","", CardColor.Green),
                 new Card("Multi Coloured Cards","", CardColor.Green),
                 new Card("Edit Mode","", CardColor.Green),
+                new Card("Custom Coloured Cards","", CardColor.Green),
+                new Card("Save and Load Boards & Cards","", CardColor.Green),
+                new Card("Remove Cards","", CardColor.Green),
+                new Card("Multi User Experience","", CardColor.Green),
+                new Card("Change Card Colour","", CardColor.Green),
+                new Card("Create Example Boards","", CardColor.Green),
+
                 //new Card("","", CardColor.Green),
 
                 // In Progress
 
 
                 // Done
+
+
+                // Business Model Canvas cards
+
+                // Possible other boards
+                // Important/Urgent
+
 
                 /*
                 */
