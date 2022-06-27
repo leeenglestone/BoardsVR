@@ -21,6 +21,7 @@ namespace StereoKitApp
         static TextStyle bodyStyle;
         static Tex cubemap = null;
         static Pose windowPose = new Pose(0, 0.1f, -0.3f, Quat.LookDir(-Vec3.Forward));
+        static Tex defaultSkyTex;
 
         // Floor
         Matrix4x4 floorTransform = Matrix.TS(new Vector3(0, -1.5f, 0), new Vector3(30, 0.1f, 30));
@@ -61,6 +62,8 @@ namespace StereoKitApp
 
         public void Init()
         {
+            defaultSkyTex = Renderer.SkyTex;
+
             // Skymap
             //LoadSkyImage("belfast_farmhouse_4k.hdr");
 
@@ -129,25 +132,7 @@ namespace StereoKitApp
                 descriptions[x] = exampleCards[x].Description;
             }
 
-            // Radial Menu
-            /*
-            handMenu = SK.AddStepper(new HandMenuRadial(
-                new HandRadialLayer("Root",
-                    new HandMenuItem("File", null, null, "File"),
-                    new HandMenuItem("Edit", null, null, "Edit"),
-                    new HandMenuItem("About", null, () => Log.Info(SK.VersionName)),
-                    new HandMenuItem("Cancel", null, null)),
-                new HandRadialLayer("File",
-                    new HandMenuItem("New", null, () => Log.Info("New")),
-                    new HandMenuItem("Open", null, () => Log.Info("Open")),
-                    new HandMenuItem("Close", null, () => Log.Info("Close")),
-                    new HandMenuItem("Back", null, null, HandMenuAction.Back)),
-                new HandRadialLayer("Edit",
-                    new HandMenuItem("Copy", null, () => Log.Info("Copy")),
-                    new HandMenuItem("Paste", null, () => Log.Info("Paste")),
-                    new HandMenuItem("Back", null, null, HandMenuAction.Back)))
-                );*/
-
+            // Radial Menu            
             Action<string> changeScene = new Action<string>(LoadSkyImage);
 
             handMenu = SK.AddStepper(new HandMenuRadial(
@@ -158,7 +143,9 @@ namespace StereoKitApp
                 //new HandMenuItem("Cancel", null, null)),
                 new HandRadialLayer("Scene",
                     new HandMenuItem("Normal", null, () => changeScene(null)),
-                    new HandMenuItem("Scene 1", null, () => changeScene("belfast_farmhouse_4k.hdr")),
+                    new HandMenuItem("Farm Field", null, () => changeScene("belfast_farmhouse_4k.hdr")),
+                    new HandMenuItem("Night Sky", null, () => changeScene("dikhololo_night_4k.hdr")),
+                    new HandMenuItem("St Peters", null, () => changeScene("st_peters_square_night_4k.hdr")),
                     //new HandMenuItem("Scene 2", null, () => Log.Info("Close")),
                     new HandMenuItem("Back", null, null, HandMenuAction.Back)))
                 );
@@ -401,8 +388,7 @@ namespace StereoKitApp
         {
             if (string.IsNullOrEmpty(file))
             {
-                Renderer.SkyTex = null;
-                cubemap = null;
+                Renderer.SkyTex = defaultSkyTex;
                 return;
             }
 
@@ -463,17 +449,20 @@ namespace StereoKitApp
                 // Kanban board cards
 
                 // Backlog
-                new Card("Sceneic Backgrounds","", CardColor.Green),
+                new Card("Enable Scenic Backgrounds","", CardColor.Green),
                 new Card("Multi Coloured Cards","", CardColor.Green),
-                new Card("Edit Mode","", CardColor.Green),
-                new Card("Custom Coloured Cards","", CardColor.Green),
-                new Card("Save and Load Boards & Cards","", CardColor.Green),
-                new Card("Remove Cards","", CardColor.Green),
-                new Card("Multi User Experience","", CardColor.Green),
-                new Card("Change Card Colour","", CardColor.Green),
+                new Card("Edit Mode","", CardColor.Yellow),
+                new Card("Custom Coloured Cards","", CardColor.Yellow),
+                new Card("Save and Load Boards & Cards","", CardColor.Red),
+                new Card("Remove Cards","", CardColor.Yellow),
+                new Card("Multi User Experience","", CardColor.Red),
+                new Card("Change Card Colour","", CardColor.Yellow),
                 new Card("Create Example Boards","", CardColor.Green),
+                new Card("Multiple scene options","", CardColor.Yellow),
+                new Card("Better Lighting","", CardColor.Red),
+                new Card("Board Titles","", CardColor.Yellow),                
 
-                //new Card("","", CardColor.Green),
+                
 
                 // In Progress
 

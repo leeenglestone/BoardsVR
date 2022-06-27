@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\belfast_farmhouse_4k.hdr" />
+    <AndroidAsset Include="Assets\dikhololo_night_4k.hdr" />
+    <AndroidAsset Include="Assets\st_peters_square_night_4k.hdr" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
