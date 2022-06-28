@@ -12,6 +12,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+
+        .top-logo {
+            width:250px;
+        }
+
+        @media (min-width: 476px) {
+            .top-logo {
+            width:400px;
+        }
+        }
+
+        </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -28,7 +41,7 @@
                     <div class="row gx-5 align-items-center justify-content-center">
                         <div class="col-lg-8 col-xl-7 col-xxl-6">
                             <div class="my-5 text-center text-xl-start" sty="text-align:center">
-                                <div style="text-align:center;"><img src="images/BoardsVR.png" style="width:400px;" alt="Boards VR"  /></div>
+                                <div style="text-align:center;"><img src="images/BoardsVR.png" alt="Boards VR" class="top-logo"  /></div>
                                 <h1 class="display-5 fw-bolder text-white mb-2">Interactive boards in VR</h1>
                                 <p class="lead fw-normal text-white-50 mb-4" style="text-align:center;">Created using StereoKit for the Mixed Reality Dev Days 2022 Microsoft Hackathon</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
@@ -37,9 +50,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                            <iframe width="600" height="400" src="https://www.youtube.com/embed/JCbywes64L0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        
+                        <div class="col-xl-5 col-xxl-6 d-xl-block text-center">
+                            <iframe style="width:100%" width="600" height="400" src="https://www.youtube.com/embed/JCbywes64L0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                        
                         </div>
                     </div>
                 </div>
