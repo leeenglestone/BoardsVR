@@ -30,12 +30,13 @@ namespace StereoKitApp
         Matrix logoTransform = Matrix.TRS(new Vector3(0, 1.1f, -1f), Quat.LookDir(0, 0, 1), new Vector3(2f, 0.5f, 1f));
         Material logoMaterial;
 
-        // Board positions        
+        // Board positions
         Pose swotBoardPose = new Pose(-2f, 0f, 0f, Quat.LookDir(1f, 0, 1f));
         Pose kanbanBoardPose = new Pose(0f, 0f, -1f, Quat.LookDir(0, 0, 1f));
         Pose businessModelCanvasBoardPose = new Pose(2.75f, 0f, 0f, Quat.LookDir(-1f, 0, 1f));
 
-        // todo: refactor
+        // todo: refactor and remove 1000 card limit
+        // todo: add persistance
         static List<Pose> poses = new List<Pose>();
         static List<CardColor> colours = new List<CardColor>();
         static string[] titles = new string[1000];
@@ -67,7 +68,7 @@ namespace StereoKitApp
             // Skymap
             //LoadSkyImage("belfast_farmhouse_4k.hdr");
 
-            // Create assets used by the app           
+            // Create assets used by the app
             floorMaterial = new Material(Shader.FromFile("floor.hlsl"));
             floorMaterial.Transparency = Transparency.Blend;
 
@@ -132,7 +133,7 @@ namespace StereoKitApp
                 descriptions[x] = exampleCards[x].Description;
             }
 
-            // Radial Menu            
+            // Radial Menu
             Action<string> changeScene = new Action<string>(LoadSkyImage);
 
             handMenu = SK.AddStepper(new HandMenuRadial(
@@ -238,7 +239,6 @@ namespace StereoKitApp
         //    poses.RemoveAt(id);
         //    colours.RemoveAt(id);
         //}
-
         private static void DrawHeadingAndBody(Pose pose, int number, ref string title, ref string description)
         {
             // Gives a bit of padding around the edges
@@ -323,10 +323,19 @@ namespace StereoKitApp
             menuPose.position += menuPose.Right * offset * U.cm;
             menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
 
-            // And make a menu!
+            // And make a hand menu!
             UI.WindowBegin("HandMenu", ref menuPose, size * U.cm, UIWin.Empty);
 
+            var direction = Quat.LookDir(0, 0, 1);
+
+            DrawButton(Color.Hex(0x00FF00FF), "Green", poses, colours, menuPose.position, direction, CardColor.Green);
+            DrawButton(Color.Hex(0xFFFF00FF), "Yellow", poses, colours, menuPose.position, direction, CardColor.Yellow);
+            DrawButton(Color.Hex(0xFF0000FF), "Red", poses, colours, menuPose.position, direction, CardColor.Red);
+            DrawButton(Color.Hex(0x0000FFFF), "Blue", poses, colours, menuPose.position, direction, CardColor.Blue);
+
             // Green
+
+            /*
             UI.PushTint(Color.Hex(0x00FF00FF));
 
             if (UI.Button("Green"))
@@ -362,7 +371,6 @@ namespace StereoKitApp
             // Blue
             UI.PushTint(Color.Hex(0x0000FFFF));
 
-
             if (UI.Button("Blue"))
             {
                 poses.Add(new Pose(menuPose.position, Quat.LookDir(0, 0, 1)));
@@ -370,6 +378,7 @@ namespace StereoKitApp
             }
 
             UI.PopTint();
+            */
 
             if (UI.Button("Toggle Edit Mode"))
             {
@@ -382,6 +391,19 @@ namespace StereoKitApp
             }
 
             UI.WindowEnd();
+        }
+
+        static void DrawButton(Color color, string text, List<Pose> poses, List<CardColor> cardColours, Vec3 position, Quat rotation, CardColor cardColour)
+        {
+            UI.PushTint(color);
+
+            if (UI.Button(text))
+            {
+                poses.Add(new Pose(position, rotation));
+                colours.Add(cardColour);
+            }
+
+            UI.PopTint();
         }
 
         void LoadSkyImage(string file)
@@ -460,21 +482,16 @@ namespace StereoKitApp
                 new Card("Create Example Boards","", CardColor.Green),
                 new Card("Multiple scene options","", CardColor.Yellow),
                 new Card("Better Lighting","", CardColor.Red),
-                new Card("Board Titles","", CardColor.Yellow),                
-
-                
+                new Card("Board Titles","", CardColor.Yellow),
 
                 // In Progress
 
-
                 // Done
-
 
                 // Business Model Canvas cards
 
                 // Possible other boards
                 // Important/Urgent
-
 
                 /*
                 */

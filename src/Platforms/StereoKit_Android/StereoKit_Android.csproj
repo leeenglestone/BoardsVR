@@ -11,7 +11,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StereoKit_Android</RootNamespace>
-    <AssemblyName>StereoKit_Android2</AssemblyName>
+    <AssemblyName>StereoKit_Android3</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
